@@ -54,7 +54,7 @@ import java.net.InetAddress;
          try {
              byte[] result = new byte[1];
              result[0] = 0;
-             DatagramPacket request = new DatagramPacket(result, result.length, InetAddress.getByName(Constants.TURN_SERVER), 6667);
+             DatagramPacket request = new DatagramPacket(result, result.length, InetAddress.getByName(new Constants().TURN_SERVER), 6667);
              socket.send(request);
              System.out.println("pingpong");
          } catch (Exception e) {
@@ -64,7 +64,7 @@ import java.net.InetAddress;
 
      public void sendData(byte[] data) {
          try {
-             DatagramPacket request = new DatagramPacket(data, data.length, InetAddress.getByName(Constants.TURN_SERVER), 6667);
+             DatagramPacket request = new DatagramPacket(data, data.length, InetAddress.getByName(new Constants().TURN_SERVER), 6667);
              socket.send(request);
          } catch (Exception e) {
              e.printStackTrace();
