@@ -18,7 +18,7 @@ public class SocketManager {
 
     public void startSocket() {
         try {
-            socket = new Socket(new Constants().SIGNALING_SERVER, 6666);
+            socket = new Socket(Constants.SIGNALING_SERVER, 6666);
             System.out.println("connected to server " + socket.getInetAddress());
 
             input = socket.getInputStream();

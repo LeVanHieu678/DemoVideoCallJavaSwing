@@ -10,7 +10,7 @@ import java.net.InetAddress;
  public class SessionManager {
      private SessionManagerDelegate delegate;
      private DatagramSocket socket;
-     private boolean isRun = true;
+     private final boolean isRun = true;
 
      public SessionManager() {
          try {
@@ -32,16 +32,13 @@ import java.net.InetAddress;
                      }
                  }
              }).start();
-             new Thread(new Runnable() {
-                 @Override
-                 public void run() {
-                     while (isRun) {
-                         pingpong();
-                         try {
-                             Thread.sleep(3000);
-                         } catch (InterruptedException e) {
-                             e.printStackTrace();
-                         }
+             new Thread(() -> {
+                 while (isRun) {
+                     pingpong();
+                     try {
+                         Thread.sleep(3000);
+                     } catch (InterruptedException e) {
+                         e.printStackTrace();
                      }
                  }
              }).start();
@@ -54,7 +51,7 @@ import java.net.InetAddress;
          try {
              byte[] result = new byte[1];
              result[0] = 0;
-             DatagramPacket request = new DatagramPacket(result, result.length, InetAddress.getByName(new Constants().TURN_SERVER), 6667);
+             DatagramPacket request = new DatagramPacket(result, result.length, InetAddress.getByName(Constants.TURN_SERVER), 6667);
              socket.send(request);
              System.out.println("pingpong");
          } catch (Exception e) {
@@ -64,7 +61,7 @@ import java.net.InetAddress;
 
      public void sendData(byte[] data) {
          try {
-             DatagramPacket request = new DatagramPacket(data, data.length, InetAddress.getByName(new Constants().TURN_SERVER), 6667);
+             DatagramPacket request = new DatagramPacket(data, data.length, InetAddress.getByName(Constants.TURN_SERVER), 6667);
              socket.send(request);
          } catch (Exception e) {
              e.printStackTrace();
